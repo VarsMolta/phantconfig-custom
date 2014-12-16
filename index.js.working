@@ -1,0 +1,88 @@
+#!/usr/bin/env node
+
+var Phant = require('phant'),
+    app = Phant();
+
+Phant.HttpServer.listen(8080);
+
+// METADATA
+// ========
+var meta = require('phant-meta-nedb')({
+  directory: 'phant_streams'
+});
+
+var validator = Phant.Validator({
+  metadata: meta
+});
+
+// KEYCHAIN
+// ========
+var keychain = require('phant-keychain-hex')({
+  keyLength: 6,
+  publicSalt: 'Change this public salt',
+  privateSalt: 'Change this private salt',
+  deleteSalt: 'Change this delete salt'
+});
+
+// STORAGE
+// =======
+var stream = require('phant-stream-csv')({
+  directory: 'phant_streams',
+  cap: 52428800,
+  chunk: 262144
+});
+
+app.registerOutput(stream);
+
+// INPUTS
+// ======
+var defaultInput = Phant.HttpInput({
+  validator: validator,
+  metadata: meta,
+  keychain: keychain
+});
+
+Phant.HttpServer.use(defaultInput);
+app.registerInput(defaultInput);
+
+// OUTPUTS
+// =======
+var defaultOutput = Phant.HttpOutput({
+  validator: validator,
+  storage: stream,
+  keychain: keychain
+});
+
+Phant.HttpServer.use(defaultOutput);
+app.registerOutput(defaultOutput);
+
+// MANAGERS
+// ========
+var defaultManager = Phant.TelnetManager({
+  validator: validator,
+  port: 8081,
+  metadata: meta,
+  keychain: keychain
+});
+
+app.registerManager(defaultManager);
+
+var PhantManagerHttp = require('phant-manager-http')({
+  validator: validator,
+  metadata: meta,
+  keychain: keychain
+});
+
+Phant.HttpServer.use(PhantManagerHttp);
+app.registerManager(PhantManagerHttp);
+
+console.log(
+  "            .-.._\n      __  \/`" +
+  "     '.\n   .-'  `\/   (   a \\" +
+  "\n  \/      (    \\,_   \\\n \/|" +
+  "       '---` |\\ =|\n` \\    \/_" +
+  "_.-\/  \/  | |\n   |  \/ \/ \\ \\" +
+  "  \\   \\_\\  jgs\n   |__|_|  |_|" +
+  "__\\\n  welcome to phant.\n\n"
+);
+
