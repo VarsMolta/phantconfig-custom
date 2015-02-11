@@ -35,12 +35,19 @@ var mongo = Meta({
 });
 
 var stream = Storage({
-  cap: process.env.PHANT_CAP || 50 * 1024 * 1024, // 50mb
+  cap: process.env.PHANT_CAP || 1 * 1024 * 1024, // 1 mb
   url: process.env.PHANT_MONGO_URL || 'mongodb://localhost/test'
 });
 
+
+
 var validator = Phant.Validator({
   metadata: mongo
+});
+
+var configStream = Phant.ConfigStream({
+  validator: validator,
+  keychain: keys
 });
 
 var httpOutput = Phant.HttpOutput({
@@ -57,6 +64,7 @@ var httpOutput = Phant.HttpOutput({
 
 var httpInput = Phant.HttpInput({
   //throttler: throttler,
+  configStream: configStream,
   validator: validator,
   keychain: keys
 });
@@ -87,6 +95,7 @@ Phant.HttpServer.use(httpOutput);
 app.registerInput(httpInput);
 
 app.registerOutput(stream);
+//app.registerOutput(config);
 //app.registerOutput(httpOutput);
 
 // mqtt out will use the same config
