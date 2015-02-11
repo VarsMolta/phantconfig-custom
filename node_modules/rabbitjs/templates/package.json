@@ -1,0 +1,33 @@
+{
+    "name": "appname",
+    "version": "0.0.1",
+    "description": "",
+    "main": "server.js",
+    "author": "",
+    "license": "BSD",
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "dependencies": {
+        "MD5": "~1.2.1",
+        "coffee-script": "~1.7.1",
+        "commander": "^2.2.0",
+        "cron-parser": "^0.3.6",
+        "express": "~3.4.8",
+        "fs-extra": "^0.9.1",
+        "glob": "~3.2.8",
+        "jade": "~1.1.5",
+        "less": "~1.6.3",
+        "less-middleware": "~0.1.15",
+        "log4js": "~0.6.10",
+        "methods": "~0.1.0",
+        "moment": "~2.5.1",
+        "mongoose": "*",
+        "mysql": "~2.1.1",
+        "node-uuid": "~1.4.1",
+        "sequelize": "~2.0.0-dev11",
+        "underscore": "*",
+        "walkdo": "^0.9.5"
+    }
+}
