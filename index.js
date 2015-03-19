@@ -31,12 +31,12 @@ var keys = Keychain({
 });
 
 var mongo = Meta({
-  url: process.env.PHANT_MONGO_URL || 'mongodb://localhost/test'
+  url: process.env.MONGOLAB_URI || 'mongodb://localhost/test'
 });
 
 var stream = Storage({
   cap: process.env.PHANT_CAP || 1 * 1024 * 1024, // 1 mb
-  url: process.env.PHANT_MONGO_URL || 'mongodb://localhost/test'
+  url: process.env.MONGOLAB_URI || 'mongodb://localhost/test'
 });
 
 
