@@ -77,7 +77,8 @@ var httpManager = HttpManager({
 });
 
 // start listening for connections
-Phant.HttpServer.listen(process.env.PHANT_PORT || 8080);
+//Phant.HttpServer.listen(process.env.PHANT_PORT || 8080);
+Phant.HttpServer.listen(process.env.PORT || 8080);
 
 // attach input to http server
 Phant.HttpServer.use(httpInput);
