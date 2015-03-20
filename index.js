@@ -135,3 +135,6 @@ console.log(
   "  \\   \\_\\  jgs\n   |__|_|  |_|" +
   "__\\\n  welcome to phant.\n\n"
 );
+console.log("PORT IS");
+console.log(process.env.PORT);
+console.log("PORT IS");
